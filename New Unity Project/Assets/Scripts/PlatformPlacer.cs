@@ -8,6 +8,7 @@ public class PlatformPlacer : MonoBehaviour
     public float timerMaxTime;
     private float currentTimerValue;
     public GameObject squre;
+    public DoodleMove doodle;
 
     public float minX;
     public float maxX;
@@ -20,7 +21,7 @@ public class PlatformPlacer : MonoBehaviour
             GameObject go;
             go = Instantiate(squre);
             go.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), y, transform.position.z);
-            y += 2;
+            y += 2.5f;
         }
     }
 

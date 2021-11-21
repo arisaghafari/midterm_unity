@@ -7,27 +7,28 @@ public class DoodleMove : MonoBehaviour
     private Vector3 moveVector;
     public float jumpAmount = 8f;
     public Rigidbody2D rb;
-    public float factor = 0.03f;
+    private float factor = 0.05f;
     public bool canJump;
+    public float maxY;
     void Start()
     {
         moveVector = new Vector3(1 * factor, 0, 0);
         canJump = true;
+        maxY = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(maxY < transform.position.y)
+        {
+            maxY = transform.position.y;
+        }
         if (canJump)
         {
             rb.AddForce(transform.up * jumpAmount, ForceMode2D.Impulse);
             canJump = false;
         }
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(transform.up * jumpAmount, ForceMode2D.Impulse);
-            Debug.Log("jump");
-        }*/
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += moveVector;
@@ -35,6 +36,14 @@ public class DoodleMove : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.position -= moveVector;
+        }
+        if(transform.position.x > 10)
+        {
+            transform.position = new Vector3(-10, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x < -10)
+        {
+            transform.position = new Vector3(10, transform.position.y, transform.position.z);
         }
 
     }
