@@ -5,10 +5,16 @@ using UnityEngine;
 public class DeathZoneManager : MonoBehaviour
 {
     public CameraManager camera;
-    void Update()
+
+    private void Start()
     {
         transform.position = new Vector3(transform.position.x, camera.transform.position.y - 6, transform.position.z);
-        //Debug.Log(transform.position.y);
+    }
+    void Update()
+    {
+        //float v = (camera.transform.position.y - 6);
+        //transform.localScale = new Vector3(transform.localScale.x, , transform.localScale.z);
+        transform.position = new Vector3(transform.position.x, camera.transform.position.y - 6, transform.position.z);
     }
     private void OnCollisionEnter(Collision collision)
     {
