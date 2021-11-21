@@ -10,6 +10,7 @@ public class DoodleMove : MonoBehaviour
     private float factor = 0.05f;
     public bool canJump;
     public float maxY;
+    public bool gameOver = false;
     void Start()
     {
         moveVector = new Vector3(1 * factor, 0, 0);
@@ -20,30 +21,33 @@ public class DoodleMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(maxY < transform.position.y)
+        if (!gameOver)
         {
-            maxY = transform.position.y;
-        }
-        if (canJump)
-        {
-            rb.AddForce(transform.up * jumpAmount, ForceMode2D.Impulse);
-            canJump = false;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += moveVector;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position -= moveVector;
-        }
-        if(transform.position.x > 10)
-        {
-            transform.position = new Vector3(-10, transform.position.y, transform.position.z);
-        }
-        if (transform.position.x < -10)
-        {
-            transform.position = new Vector3(10, transform.position.y, transform.position.z);
+            if (maxY < transform.position.y)
+            {
+                maxY = transform.position.y;
+            }
+            if (canJump)
+            {
+                rb.AddForce(transform.up * jumpAmount, ForceMode2D.Impulse);
+                canJump = false;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.position += moveVector;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.position -= moveVector;
+            }
+            if (transform.position.x > 10)
+            {
+                transform.position = new Vector3(-10, transform.position.y, transform.position.z);
+            }
+            if (transform.position.x < -10)
+            {
+                transform.position = new Vector3(10, transform.position.y, transform.position.z);
+            }
         }
 
     }
@@ -53,5 +57,11 @@ public class DoodleMove : MonoBehaviour
         {
             canJump = true;
         }
+        if (collision.gameObject.CompareTag("death zone"))
+        {
+            Debug.Log("death zone");
+            gameOver = true;
+        }
+
     }
 }

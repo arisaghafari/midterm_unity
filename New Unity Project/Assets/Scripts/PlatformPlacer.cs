@@ -20,6 +20,7 @@ public class PlatformPlacer : MonoBehaviour
         {
             GameObject go;
             go = Instantiate(squre);
+            go.AddComponent<PlatformManager>();
             go.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), y, transform.position.z);
             y += 2.5f;
         }
@@ -27,17 +28,21 @@ public class PlatformPlacer : MonoBehaviour
 
     void Update()
     {
-        if (currentTimerValue > 0)
+        if (!doodle.gameOver)
         {
-            currentTimerValue -= Time.deltaTime;
-        }
-        else
-        {
-            GameObject go;
-            go = Instantiate(squre);
-            go.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), y, transform.position.z);
-            currentTimerValue = timerMaxTime;
-            y += 2f;
+            if (currentTimerValue > 0)
+            {
+                currentTimerValue -= Time.deltaTime;
+            }
+            else
+            {
+                GameObject go;
+                go = Instantiate(squre);
+                go.AddComponent<PlatformManager>();
+                go.transform.position = new Vector3(UnityEngine.Random.Range(minX, maxX), y, transform.position.z);
+                currentTimerValue = timerMaxTime;
+                y += 2f;
+            }
         }
     }
 }
